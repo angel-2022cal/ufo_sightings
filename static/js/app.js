@@ -1,32 +1,57 @@
-
 // Initially set filterData equal to dataSet
 var filterData = dataSet;
 
 // Define the table body
 var tbody = d3.select("tbody");
 
-
 //Code for what happens when filter button is clicked
-var submit = d3.select("#filter-btn");
-submit.on("click", function() {
+var filterEntries = d3.select("#filter-btn");
+filterEntries.on("click", function() {
+    
   // Prevent the page from refreshing
   d3.event.preventDefault();
+    
   // Select the input element and get the raw HTML node
   var datetimeElement = d3.select("#datetime");
-  // Get the value property of the input element
+  var citynameElement = d3.select("#cityname");
+  var statenameElement = d3.select("#statename");
+  var countrynameElement = d3.select("#countryname");
+  var shapenameElement = d3.select("#shapename");
+    
+  // Get the value property of the input elements
   var datetimeValue = datetimeElement.property("value");
-  filterData = dataSet.filter(entry => entry.datetime === datetimeValue);
-  console.log(filterData);
-//  $("#tbodyid").empty();
+  var citynameValue = citynameElement.property("value").toLowerCase().trim();
+  var statenameValue = statenameElement.property("value").toLowerCase().trim();
+  var countrynameValue = countrynameElement.property("value").toLowerCase().trim();    
+  var shapenameValue = shapenameElement.property("value").toLowerCase().trim();
+
+//  Create if statements for multiple filters
+  if (datetimeValue != "") {
+      filterData = dataSet.filter(entry => entry.datetime === datetimeValue);
+  }
+  if (citynameValue != "") {
+       filterData = dataSet.filter(entry => entry.city === citynameValue);     
+  }
+  if (statenameValue != "") {
+       filterData = dataSet.filter(entry => entry.state === statenameValue);     
+  }
+  if (shapenameValue != "") {
+       filterData = dataSet.filter(entry => entry.shape === shapenameValue);     
+  }  
+  console.log(filterData);    
   renderTable();
 });
 
+//Make it so that the clear button refreshes the page to reset everything
+var clearEntries = d3.select("#clear-btn");
+clearEntries.on("click", function() {
+  location.reload();
+});
 
 // Run renderTable function so that the table initially shows up
 renderTable();
 
-
-//Create loop through all data to show everything
+//Create loop through all data to show everything in the filtered dataset
 function renderTable(){
     $("#tbodyid").empty();
     console.log(filterData);
