@@ -27,16 +27,19 @@ filterEntries.on("click", function() {
 
 //  Create if statements for multiple filters
   if (datetimeValue != "") {
-      filterData = dataSet.filter(entry => entry.datetime === datetimeValue);
+      filterData = filterData.filter(entry => entry.datetime === datetimeValue);
   }
   if (citynameValue != "") {
-       filterData = dataSet.filter(entry => entry.city === citynameValue);     
+       filterData = filterData.filter(entry => entry.city === citynameValue);     
   }
   if (statenameValue != "") {
-       filterData = dataSet.filter(entry => entry.state === statenameValue);     
+       filterData = filterData.filter(entry => entry.state === statenameValue);     
+  }
+  if (countrynameValue != "") {
+       filterData = filterData.filter(entry => entry.country === countrynameValue);     
   }
   if (shapenameValue != "") {
-       filterData = dataSet.filter(entry => entry.shape === shapenameValue);     
+       filterData = filterData.filter(entry => entry.shape === shapenameValue);     
   }  
   console.log(filterData);    
   renderTable();
